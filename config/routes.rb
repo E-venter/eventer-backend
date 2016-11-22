@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
+  get 'sample/events', to: 'sample#form'
+
   root 'index#index'
 
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
   get 'signout', to: 'sessions#destroy', as: 'signout'
+
+  post 'sample/events', to: 'sample#events', as: :sample_event
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
