@@ -7,10 +7,6 @@ class Event < ActiveRecord::Base
   validates_presence_of(
     :name, :latitude, :longitude,
     :owner_id, :address, :description, :start_time,
-    :private, :duration, :radius
+    :event_type, :duration, :radius
   )
-
-  def public
-    !private
-  end
 end

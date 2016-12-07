@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   end
 
   post 'events', to: 'event#create', as: :events_create
+  post 'events/around', to: 'event#visible_events', as: :events_around
 
   get 'sample/events', to: 'samle#form'
 
