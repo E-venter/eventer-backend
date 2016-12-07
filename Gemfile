@@ -4,7 +4,10 @@ source 'https://rubygems.org'
 gem 'geokit'
 gem 'geokit-rails'
 # Facebook omniauthentication
-gem 'omniauth-facebook'
+gem 'devise'
+gem 'devise_token_auth'
+gem 'omniauth'
+# gem 'omniauth-facebook'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
 # Use postgresql as the database for Active Record

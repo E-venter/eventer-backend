@@ -1,12 +1,19 @@
 Rails.application.routes.draw do
-  get 'sample/events', to: 'sample#form'
-
   root 'index#index'
 
-  get 'auth/:provider/callback', to: 'sessions#create'
-  get 'auth/failure', to: redirect('/')
-  get 'signout', to: 'sessions#destroy', as: 'signout'
+  devise_for :users, controllers: {
+    sessions: 'users/sessions'
+  }
 
+  namespace :api do
+    mount_devise_token_auth_for 'User', at: 'auth'
+  end
+
+  post 'events', to: 'event#create', as: :events_create
+
+  get 'sample/events', to: 'samle#form'
+
+  post 'sample/checkin', to: 'sample#checkin', as: :sample_checkin
   post 'sample/events', to: 'sample#events', as: :sample_event
 
   # The priority is based upon order of creation:
