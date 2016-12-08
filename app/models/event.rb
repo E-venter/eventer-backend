@@ -9,4 +9,15 @@ class Event < ActiveRecord::Base
     :owner_id, :address, :description, :start_time,
     :event_type, :duration, :radius
   )
+
+  def self.visible(options = {})
+    sw = options[:sw_corner]
+    ne = options[:ne_corner]
+    Event.in_bounds(
+        [
+            [sw['latitude'].to_f, sw['longitude'].to_f],
+            [ne['latitude'].to_f, ne['longitude'].to_f]
+        ]
+    )
+  end
 end

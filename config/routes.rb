@@ -12,10 +12,17 @@ Rails.application.routes.draw do
     }
   end
 
+  # namespace :events do
+  #   post '/', to: 'event#create', as: :events_create
+  #   post 'around', to: 'event#visible_events', as: :events_around
+  #   post 'checkin', to: 'event#checkin', as: :events_checkin
+  # end
   post 'events', to: 'event#create', as: :events_create
   post 'events/around', to: 'event#visible_events', as: :events_around
 
-  get 'sample/events', to: 'samle#form'
+  post 'checkin', to: 'checkin#create', as: :events_checkin
+
+  get 'sample/events', to: 'sample#form'
 
   post 'sample/checkin', to: 'sample#checkin', as: :sample_checkin
   post 'sample/events', to: 'sample#events', as: :sample_event

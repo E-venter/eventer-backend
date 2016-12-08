@@ -32,7 +32,7 @@ class Users::RegistrationsController < DeviseTokenAuth::RegistrationsController
           status: :not_acceptable
       )
     end
-    params[:picture] = resp['face'].first['attribute']['face_id']
+    params[:picture] = resp['face'].first['face_id']
     puts "picture: #{params[:picture]}"
     super
   end
