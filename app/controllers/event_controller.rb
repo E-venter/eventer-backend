@@ -54,7 +54,7 @@ class EventController < ApplicationController
 
   def event_attrs(hash, *keys)
     hash.select do |k, _v|
-      keys.includes? k
+      keys.include? k
     end
   end
 

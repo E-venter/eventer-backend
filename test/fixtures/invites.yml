@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  event: 1
+  invited: 1
+
+two:
+  event: 1
+  invited: 1
