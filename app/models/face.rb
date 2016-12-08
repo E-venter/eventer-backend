@@ -1,0 +1,1 @@
+FACE = FacePP.new FacePlusPlus::API_KEY, FacePlusPlus::API_SECRET

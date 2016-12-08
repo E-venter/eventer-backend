@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+# face recognition
+gem 'facepp', git: 'https://github.com/Kasama/facepp-ruby-sdk'
 # geolocalization
 gem 'geokit'
 gem 'geokit-rails'

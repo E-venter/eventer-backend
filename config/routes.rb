@@ -2,11 +2,14 @@ Rails.application.routes.draw do
   root 'index#index'
 
   devise_for :users, controllers: {
-    sessions: 'users/sessions'
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
   }
 
   namespace :api do
-    mount_devise_token_auth_for 'User', at: 'auth'
+    mount_devise_token_auth_for 'User', at: 'auth', controllers: {
+        registrations: 'users/registrations'
+    }
   end
 
   post 'events', to: 'event#create', as: :events_create

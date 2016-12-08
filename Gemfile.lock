@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/Kasama/facepp-ruby-sdk
+  revision: d0f22322f500548e1128f8f58fe56394d156d556
+  specs:
+    facepp (0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -168,6 +174,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   devise
   devise_token_auth
+  facepp!
   geokit
   geokit-rails
   jbuilder (~> 2.0)
