@@ -8,10 +8,32 @@ class CheckinController < ApplicationController
   def create
     image = params[:binary_file]
     event_id = params[:event_id].to_i
-    unless Checkin.find_by_event_and_user event_id, current_user.id
+    location = JSON.parse(params['location'])
+    event = Event.find_by_id event_id
+    if event.start_time > Time.current || event.end_time < Time.current
+      return render(
+          json: { success: 'failed', errors: ['time frame problem'] },
+          status: 488
+      )
+    end
+    if Checkin.find_by_event_and_user event_id, current_user.id
       return render(
           json: { success: 'failed', errors: ['already checked in'] },
           status: :forbidden
+      )
+    end
+    unless event
+      return render(
+          json: { success: 'failed', errors: ['invalid event'] },
+          status: :expectation_failed
+      )
+    end
+    current_loc = Geokit::LatLng.new(location['latitude'].to_f, location['longitude'].to_f)
+    distance = event.distance_to(current_loc, units: :kms) * 1000
+    if distance > event.radius
+      return render(
+          json: { success: 'failed', errors: ['too far away'] },
+          status: 416
       )
     end
     unless image

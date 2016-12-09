@@ -87,8 +87,6 @@ class EventController < ApplicationController
     render json: { list: events }
   end
 
-
-
   private
 
   def event_attrs(hash, *keys)
@@ -101,7 +99,8 @@ class EventController < ApplicationController
     ret = event.serializable_hash
     ret['start_time'] = event['start_time'].to_datetime.strftime('%Q').to_i
     ret['end_time'] = event['end_time'].to_datetime.strftime('%Q').to_i
-    checkin = Checkin.find_by_event_and_user(event['id'], u.id)
+    checkin = Checkin.find_by_event_and_user(event['id'], current_user.id)
+    ret['id'] = "#{ret['id']}"
     ret['checked_in'] = ! checkin.nil?
     ret
       .except('created_at', 'updated_at', 'owner_id', 'duration')
