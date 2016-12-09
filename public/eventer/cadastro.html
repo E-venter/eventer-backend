@@ -43,23 +43,22 @@
             var formURl = '/users/';
             var form = new FormData();
 
-            // var name = $("#name").val();
-            // var email = $("#email").val();
-            // var password = $("#passwd").val();
-            // var password_confirmation = $("#passwd_conf").val();
+            var name = $("#name").val();
+            var email = $("#email").val();
+            var password = $("#passwd").val();
+            var password_confirmation = $("#passwd_conf").val();
             var pic = $("#pic");
-            console.log('pic ', pic);
             // form.append("binary_file", $("#pic"));
 
-            // form.append("name", name);
-            // form.append("email", email);
-            // form.append("password", password);
-            // form.append("password_confirmation", password_confirmation);
+            form.append("name", name);
+            form.append("email", email);
+            form.append("password", password);
+            form.append("password_confirmation", password_confirmation);
 
-            // console.log('name: ', name);
-            // console.log('email: ', email);
-            // console.log('password: ', password);
-            // console.log('password conf: ', password_confirmation);
+            console.log('name: ', name);
+            console.log('email: ', email);
+            console.log('password: ', password);
+            console.log('password conf: ', password_confirmation);
             console.log('form length', form.entries().next());
            /*
            $.ajax({
