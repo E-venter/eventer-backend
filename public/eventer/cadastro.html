@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="css/standardize.css">
   <link rel="stylesheet" href="css/cadastro-grid.css">
   <link rel="stylesheet" href="css/cadastro.css">
+  <script src="js/jquery-min.js"></script>
+  <script type="text/javascript" src="js/js-cookie.js"></script>
 </head>
 <body class="body page-cadastro clearfix">
   <div class="logo logo-1"></div>
@@ -18,12 +20,15 @@
   <input id="divListaEventos" class="_input" type="text">
   <div id="form" class="event_area clearfix">
     <textarea id="nome" class="_textarea _textarea-1" placeholder="Nome:"></textarea>
-    <input id="email" class="event event-1" type="text">
+    <input id="name" class="event event-1" type="text">
     <textarea id="date_hour" class="_textarea _textarea-2" placeholder="Email:"></textarea>
     <input id="email" class="event event-2" type="text">
     <textarea id="address" class="_textarea _textarea-3" placeholder="Senha:"></textarea>
-    <input id="senha" class="event event-3" type="text">
-    <button class="_button">Submeter</button>
+    <input id="passwd" class="event event-3" type="text">
+    <textarea id="address2" class="_textarea _textarea-3" placeholder="Confime a senha:"></textarea>
+    <input id="passwd_conf" class="event event-3" type="text">
+    <input id="pic" type="file" name="pic" accept="image/*">
+    <button id="submit">Submeter</button>
   </div>
   <div class="footer clearfix">
     <div class="element"></div>
@@ -31,7 +36,72 @@
     <p class="text _text text-2">Contato</p>
     <p class="text _text text-3">©&nbsp;2016 E-Venter. Todos os direitos reservados</p>
   </div>
+  <script>
+    $(document).ready(
+        $(document).ready(
+          $("#submit").click(function(){
+            var formURl = '/users/';
+            var form = new FormData();
 
-  <script src="js/jquery-min.js"></script>
+            // var name = $("#name").val();
+            // var email = $("#email").val();
+            // var password = $("#passwd").val();
+            // var password_confirmation = $("#passwd_conf").val();
+            var pic = $("#pic");
+            console.log('pic ', pic);
+            // form.append("binary_file", $("#pic"));
+
+            // form.append("name", name);
+            // form.append("email", email);
+            // form.append("password", password);
+            // form.append("password_confirmation", password_confirmation);
+
+            // console.log('name: ', name);
+            // console.log('email: ', email);
+            // console.log('password: ', password);
+            // console.log('password conf: ', password_confirmation);
+            console.log('form length', form.entries().next());
+           /*
+           $.ajax({
+              type: 'POST',
+              url: '/users/',
+              datatype: 'json',
+              data: {name, email, password, password_confirmation},
+              success: function(msg, status, request){
+                console.log('msg: ', msg);
+                // console.log('request: ', request);
+                // console.log('status: ', status);
+                // console.log('Access-Token', request.getResponseHeader('Access-Token'));
+                // console.log('client', request.getResponseHeader('Client'));
+                // console.log('Uid', request.getResponseHeader('Uid'));
+                // Cookies.set('Access-Token', request.getResponseHeader('Access-Token'), {path: ''});
+                // Cookies.set('client', request.getResponseHeader('Client'), {path: ''});
+                // Cookies.set('Uid', request.getResponseHeader('Uid'), {path: ''});
+            }
+            })*/
+        })
+      )
+    );
+        //     email: 'joseph@mailinator.com',
+        //     password: '123456'
+        // };
+        /*$.ajax({
+            type: 'POST',
+            url: '/api/auth/sign_in/',
+            datatype: 'json',
+            data: user,
+            success: function(msg, status, request){
+                // console.log('msg: ', msg);
+                // console.log('request: ', request);
+                // console.log('status: ', status);
+                // console.log('Access-Token', request.getResponseHeader('Access-Token'));
+                // console.log('client', request.getResponseHeader('Client'));
+                // console.log('Uid', request.getResponseHeader('Uid'));
+                Cookies.set('Access-Token', request.getResponseHeader('Access-Token'), {path: ''});
+                Cookies.set('client', request.getResponseHeader('Client'), {path: ''});
+                Cookies.set('Uid', request.getResponseHeader('Uid'), {path: ''});
+            }
+        });*/
+  </script>
 </body>
 </html>

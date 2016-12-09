@@ -1,4 +1,18 @@
 Rails.application.routes.draw do
+  get 'invites/index'
+
+  get 'invites/new'
+
+  get 'invites/create'
+
+  get 'invites/show'
+
+  get 'invites/edit'
+
+  get 'invites/update'
+
+  get 'invites/destroy'
+
   root 'index#index'
 
   devise_for :users, controllers: {
@@ -22,6 +36,8 @@ Rails.application.routes.draw do
   get 'events/my_events', to: 'event#my_events', as: :my_events
 
   post 'checkin', to: 'checkin#create', as: :events_checkin
+
+  resources :invite
 
   get 'sample/events', to: 'sample#form'
 

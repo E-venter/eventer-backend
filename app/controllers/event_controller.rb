@@ -1,8 +1,8 @@
 # Controller to handle Event operations
 class EventController < ApplicationController
   include DeviseTokenAuth::Concerns::SetUserByToken
+  include Geokit::Geocoders
 
-  before_filter :checkin_params, only: [:checkin]
   before_action :authenticate_user!
   skip_before_filter :verify_authenticity_token
 
@@ -10,20 +10,25 @@ class EventController < ApplicationController
     unless current_user
       return render json: { success: false, errors: ['failed to authenticate'] }
     end
-    info = params[:info]
-    info[:owner_id] = current_user.id
-    info[:start_time] = Time.at(info[:start_time].to_i)
-    info[:end_time] = Time.at(info[:end_time].to_i)
-    info[:duration] = info[:end_time] - info[:start_time]
-    info[:radius] = 5
+    params[:owner_id] = current_user.id
+    params[:start_time] = Time.at(params[:start_time].to_i)
+    params[:end_time] = Time.at(params[:end_time].to_i)
+    # params[:duration] = params[:end_time] - params[:start_time]
+    params[:duration] = params[:end_time] - params[:start_time]
+    if params[:address].nil? || params[:address] == ''
+      params[:address] = (MultiGeocoder.reverse_geocode [params[:latitude].to_f, params[:longitude].to_f]).full_address
+    end
+    puts "addr: #{params[:address]}"
     # event_attrs(info, :owner_id, :start_time, :end_time, :duration, :radius)
 
-    event = Event.create!(info)
-    render json: {
-      success: true,
-      event: event.inspect,
-      user: current_user.inspect
-    }
+    event = Event.create!(params.permit(:name, :radius, :event_type, :address, :latitude, :longitude, :description, :start_time, :end_time, :duration, :owner_id))
+    render(
+        json: {
+            success: 'success',
+            event: visible_attr(event, current_user)
+        },
+        status: :ok
+    )
   end
 
   def my_events
@@ -71,7 +76,7 @@ class EventController < ApplicationController
     # ).where("event_type <> 'private' AND end_time > ?", Time.now).each do |e|
     # e.where(event_type: 'public').where('end_time >= :now', Time.current).limit(100).each do |e|
     ev = ev
-        .where(event_type: 'public')
+        .where('event_type = \'public\' OR owner_id = \'?\'', current_user.id)
         .where('end_time >= :now', now: Time.current)
         .limit(100)
     ev.each do |e|
@@ -81,6 +86,8 @@ class EventController < ApplicationController
     puts "responding with:\n #{events}\nended ------"
     render json: { list: events }
   end
+
+
 
   private
 

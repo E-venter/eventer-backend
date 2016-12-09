@@ -1,6 +1,11 @@
 class Users::RegistrationsController < DeviseTokenAuth::RegistrationsController
+  # include Invitation::UserRegistration
+
   before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
+
+  # before_action :set_invite_token, only: [:new]
+  # after_action :process_invite_token, only: [:create]
 
   # GET /resource/sign_up
   def new
@@ -14,6 +19,7 @@ class Users::RegistrationsController < DeviseTokenAuth::RegistrationsController
 
   # POST /resource
   def create
+    token = params[:invite_token]
     image = params[:binary_file]
     unless image
       puts 'no image'
@@ -34,7 +40,12 @@ class Users::RegistrationsController < DeviseTokenAuth::RegistrationsController
     end
     params[:picture] = resp['face'].first['face_id']
     puts "picture: #{params[:picture]}"
-    super
+    super do |user|
+      if token
+        inv = Invite.find_by_token(token).event_id
+        user.events.push inv
+      end
+    end
   end
 
   # GET /resource/edit

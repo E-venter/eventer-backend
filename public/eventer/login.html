@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="initial-scale=1.0">
   <title>index</title>
-  <link rel="stylesheet" href="css/standardize.css">
-  <link rel="stylesheet" href="css/login-grid.css">
-  <link rel="stylesheet" href="css/login.css">
+  <link type="text/css" rel="stylesheet" href="css/standardize.css">
+  <link type="text/css" rel="stylesheet" href="css/login-grid.css">
+  <link type="text/css" rel="stylesheet" href="css/login.css">
 </head>
 <body class="body page-login clearfix">
   <div class="logo logo-1"></div>
@@ -16,20 +16,65 @@
     <a href="all_events.html" id="TodosEventos" class="_text _text-2">Todos os Eventos</a>
   </div>
   <input id="divListaEventos" class="_input" type="text">
-  <div id="form" class="event_area clearfix">
+  <div id="form" class="event_area event">
     <textarea id="date_hour" class="_textarea _textarea-1" placeholder="Email:"></textarea>
     <input id="email" class="event event-1" type="text">
     <textarea id="address" class="_textarea _textarea-2" placeholder="Senha:"></textarea>
     <input id="senha" class="event event-2" type="text">
-    <button class="_button">Submeter</button>
+    <!--<button id= "submitbnt" class="_button">Submeter</button>-->
+    <button id= "submitbnt">Submeter</button>
   </div>
-  <div class="footer clearfix">
-    <div class="element"></div>
-    <p class="text _text text-1">Termos de Uso&nbsp;</p>
-    <p class="text _text text-2">Contato</p>
-    <p class="text _text text-3">©&nbsp;2016 E-Venter. Todos os direitos reservados</p>
-  </div>
-
   <script src="js/jquery-min.js"></script>
+  <script>
+    $(document).ready(
+        $(document).ready(
+          $("#submitbnt").click(function(){
+            var email = $("#email").val();
+            var password = $("#senha").val();
+            console.log('email: ', email);
+            console.log('password: ', password);
+
+            $.ajax({
+              type: 'POST',
+              url: '/api/auth/sign_in/',
+              datatype: 'json',
+              data: {email, password},
+              success: function(msg, status, request){
+                console.log('msg: ', msg);
+                // console.log('request: ', request);
+                // console.log('status: ', status);
+                // console.log('Access-Token', request.getResponseHeader('Access-Token'));
+                // console.log('client', request.getResponseHeader('Client'));
+                // console.log('Uid', request.getResponseHeader('Uid'));
+                Cookies.set('Access-Token', request.getResponseHeader('Access-Token'), {path: ''});
+                Cookies.set('client', request.getResponseHeader('Client'), {path: ''});
+                Cookies.set('Uid', request.getResponseHeader('Uid'), {path: ''});
+            }
+            })
+        })
+      )
+    )
+        //     email: 'joseph@mailinator.com',
+        //     password: '123456'
+        // };
+        /*$.ajax({
+            type: 'POST',
+            url: '/api/auth/sign_in/',
+            datatype: 'json',
+            data: user,
+            success: function(msg, status, request){
+                // console.log('msg: ', msg);
+                // console.log('request: ', request);
+                // console.log('status: ', status);
+                // console.log('Access-Token', request.getResponseHeader('Access-Token'));
+                // console.log('client', request.getResponseHeader('Client'));
+                // console.log('Uid', request.getResponseHeader('Uid'));
+                Cookies.set('Access-Token', request.getResponseHeader('Access-Token'), {path: ''});
+                Cookies.set('client', request.getResponseHeader('Client'), {path: ''});
+                Cookies.set('Uid', request.getResponseHeader('Uid'), {path: ''});
+            }
+        });*/
+  </script>
+  <script type="text/javascript" src="js/js-cookie.js"></script>
 </body>
 </html>

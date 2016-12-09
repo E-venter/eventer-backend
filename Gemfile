@@ -8,6 +8,7 @@ gem 'geokit-rails'
 # Facebook omniauthentication
 gem 'devise'
 gem 'devise_token_auth'
+gem 'invitation'
 gem 'omniauth'
 # gem 'omniauth-facebook'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

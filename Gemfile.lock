@@ -76,6 +76,8 @@ GEM
       activesupport (>= 4.1.0)
     hashie (3.4.6)
     i18n (0.7.0)
+    invitation (0.2)
+      rails (>= 4.0, < 5.1)
     jbuilder (2.5.0)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
@@ -177,6 +179,7 @@ DEPENDENCIES
   facepp!
   geokit
   geokit-rails
+  invitation
   jbuilder (~> 2.0)
   jquery-rails
   omniauth

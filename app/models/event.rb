@@ -10,6 +10,8 @@ class Event < ActiveRecord::Base
     :event_type, :duration, :radius
   )
 
+  has_many :invites
+
   def self.visible(options = {})
     sw = options[:sw_corner]
     ne = options[:ne_corner]

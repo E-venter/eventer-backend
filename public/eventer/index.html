@@ -24,10 +24,10 @@
   <div onClick="window.location='index.html';" class="logo logo-1"></div>
   <div class="logo logo-2"></div>
   <div class="nav clearfix">
-    <a href="meuseventos.html" id="meusEventos" class="_text _text-1">Meus Eventos</a>
-    <a href="listaeventos.html" id="TodosEventos" class="_text _text-2">Todos os Eventos</a>
-    <button onClick="window.location='login.html';" id="signin" class="_button _button-1">Sign In</button>
-    <button onClick="window.location='cadastro.html';" id="cadastro" class="_button _button-2">Cadastre-se</button>
+    <a href="eventer/meuseventos.html" id="meusEventos" class="_text _text-1">Meus Eventos</a>
+    <a href="eventer/listaeventos.html" id="TodosEventos" class="_text _text-2">Todos os Eventos</a>
+    <button onClick="window.location='eventer/login.html';" id="signin" class="_button _button-1">Sign In</button>
+    <button onClick="window.location='eventer/cadastro.html';" id="cadastro" class="_button _button-2">Cadastre-se</button>
   </div>
 
   <div id="map"></div>
@@ -45,69 +45,64 @@
 
       google.maps.event.addListener(map, 'idle', function() {
         var bound = map.getBounds();
-        console.log('Bounds', bound);
-        console.log('bound NE:', bound.getNorthEast().lat());
-        console.log('bound NE:', bound.getSouthWest().lng());
         var data = {
-          sw_corner: {
+          corner_ne: {
             latitude: bound.getNorthEast().lat(),
             longitude: bound.getNorthEast().lng()
           },
-          ne_corner: {
+          corner_sw: {
             latitude: bound.getSouthWest().lat(),
             longitude: bound.getSouthWest().lng()
           }
         };
-        console.log('data: ', data);
+        $.ajax({
+            url:'/events/around',
+            headers:{
+              'Access-Token': Cookies.get('Access-Token'),
+              client: Cookies.get('client'),
+              Uid: Cookies.get('Uid')
+            },
+            datatype: 'json',
+            data: data,
+            type: 'POST',
+            success: function(data) {
+              console.log('succes: ', data);
+              console.log('typeof', data.list[0]);
+              for( var i = 0; i < data.list.length; i++){
+                var lat = data.list[i].latitude;
+                var lng = data.list[i].longitude;
+                var marker = new google.maps.Marker({
+                  position: {lat, lng},
+                  map: map,
+                  title: data.list[i].name
+                });
+              }
+            }
+        });
         var user = {
             email: 'joseph@mailinator.com',
             password: '123456'
         };
-        var loggin = $.ajax({
+        /*$.ajax({
             type: 'POST',
             url: '/api/auth/sign_in/',
             datatype: 'json',
             data: user,
             success: function(msg, status, request){
-                console.log('msg: ', msg);
-                console.log('request: ', request);
-                console.log('status: ', status);
-
-                request.get
-
-            }
-        });
-      });
-        /*$.ajax({
-            url: '172.26.184.65:3000',
-            hrFields: {
-              withCredentials: true
-            },
-            crossDomain: true,
-            type: 'POST',
-            datatype: 'json',
-            data,
-            success: function(data){
-                console.log('succes: ', data);
+                // console.log('msg: ', msg);
+                // console.log('request: ', request);
+                // console.log('status: ', status);
+                // console.log('Access-Token', request.getResponseHeader('Access-Token'));
+                // console.log('client', request.getResponseHeader('Client'));
+                // console.log('Uid', request.getResponseHeader('Uid'));
+                Cookies.set('Access-Token', request.getResponseHeader('Access-Token'), {path: ''});
+                Cookies.set('client', request.getResponseHeader('Client'), {path: ''});
+                Cookies.set('Uid', request.getResponseHeader('Uid'), {path: ''});
             }
         });*/
-        /*$.ajax({
-          url:'172.26.184.65:3000',
-          headers:{
-              'auth-token': '',
-              client: '',
-              uid:''
-            },
-            datatype: 'json',
-            data: data,
-            success: function(data){
-            console.log('succes: ', data);
-            }
-         })
       });
     };
-      */
-    };
+
     $(document).ready(
       initMap()
     );
