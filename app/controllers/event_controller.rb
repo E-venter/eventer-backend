@@ -28,7 +28,10 @@ class EventController < ApplicationController
 
   def my_events
     unless current_user
-      return render json: { success: false, errors: ['failed to authenticate'] }
+      return render(
+          json: { success: false, errors: ['failed to authenticate'] },
+          status: :unauthorized
+      )
     end
 
     events = []
@@ -36,12 +39,10 @@ class EventController < ApplicationController
       events.append visible_attr(e, current_user)
     end
 
-    render json: {
-        success: 'success',
-        errors: [],
-        status: :ok,
-        events: events
-    }
+    render(
+        json: { success: 'success', errors: [], events: events },
+        status: :ok
+    )
 
   end
 
@@ -49,19 +50,31 @@ class EventController < ApplicationController
     unless current_user
       return render json: { success: false, errors: ['failed to authenticate'] }
     end
-    info = JSON.load(params[:info])
-    puts "info is:\n#{info.inspect}\n--#{info.class}--"
-    sw_corner = info['corner_sw']
-    puts "SW: #{sw_corner}"
-    ne_corner = info['corner_ne']
-    puts "NE: #{ne_corner}"
+    # info = JSON.load(params[:info])
+    # puts "info is:\n#{info.inspect}\n--#{info.class}--"
+    sw_corner = params['corner_sw']
+    if sw_corner.is_a? String
+      sw_corner = JSON.parse(sw_corner)
+    end
+    puts "SW: #{sw_corner.class}"
+    ne_corner = params['corner_ne']
+    if ne_corner.is_a? String
+      ne_corner = JSON.parse(ne_corner)
+    end
+    puts "NE: #{ne_corner.class}"
 
     events = []
-    Event.visible(
+    ev = Event.visible(
         sw_corner: sw_corner,
         ne_corner: ne_corner
+    )
     # ).where("event_type <> 'private' AND end_time > ?", Time.now).each do |e|
-    ).where(event_type: 'public').each do |e|
+    # e.where(event_type: 'public').where('end_time >= :now', Time.current).limit(100).each do |e|
+    ev = ev
+        .where(event_type: 'public')
+        .where('end_time >= :now', now: Time.current)
+        .limit(100)
+    ev.each do |e|
       u = User.find_by_id e.owner_id.to_i
       events.append visible_attr(e, u)
     end
@@ -82,7 +95,7 @@ class EventController < ApplicationController
     ret['start_time'] = event['start_time'].to_datetime.strftime('%Q').to_i
     ret['end_time'] = event['end_time'].to_datetime.strftime('%Q').to_i
     checkin = Checkin.find_by_event_and_user(event['id'], u.id)
-    ret['checked_in'] = ! checkin.any?
+    ret['checked_in'] = ! checkin.nil?
     ret
       .except('created_at', 'updated_at', 'owner_id', 'duration')
       .merge('owner_name' => u.name, 'owner_email' => u.email)

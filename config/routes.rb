@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   # end
   post 'events', to: 'event#create', as: :events_create
   post 'events/around', to: 'event#visible_events', as: :events_around
+  get 'events/my_events', to: 'event#my_events', as: :my_events
 
   post 'checkin', to: 'checkin#create', as: :events_checkin
 

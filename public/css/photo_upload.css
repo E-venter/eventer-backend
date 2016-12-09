@@ -1,0 +1,205 @@
+body {
+  background-color: rgb(255, 255, 255);
+  font: 400 1em/1.38 'Avenir Next';
+  color: rgb(0, 0, 0);
+}
+
+.photo_area p {
+  margin-bottom: 1em;
+}
+
+.bodya {
+  position: relative;
+  float: left;
+  clear: both;
+  width: 100%;
+  height: 433px;
+  margin-top: 55px;
+  background-color: rgb(255, 255, 255);
+}
+
+.element {
+  position: relative;
+  float: left;
+  z-index: 0;
+  width: 100%;
+  height: 79px;
+  background-color: rgba(26, 26, 26, 0.89);
+}
+
+.footer {
+  float: left;
+  clear: both;
+  width: 100%;
+  height: 79px;
+  margin-top: 159px;
+}
+
+.image {
+  display: block;
+  float: left;
+  width: 43px;
+  height: auto;
+  margin-left: 4.85642%;
+  overflow: hidden;
+}
+
+.logo {
+  float: left;
+  width: 12.3333333333%;
+  height: 43px;
+  margin: 18px 0 0 2.0666699999%;
+}
+
+.photo_area {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 11;
+  width: 87.1989583333%;
+  height: 433px;
+  margin: auto;
+  background-color: rgb(255, 255, 255);
+}
+
+.photo_text {
+  position: relative;
+  float: left;
+  z-index: 9;
+  width: 40%;
+  min-height: 100px;
+  margin: 125px 0 0 42.53085%;
+  font-size: 1em;
+  text-align: justify;
+  color: rgb(0, 0, 0);
+}
+
+.text {
+  position: relative;
+  float: left;
+  margin-top: -49px;
+  font-family: AvenirNext-UltraLight;
+  font-size: 0.75em;
+  font-weight: normal;
+  color: rgba(227, 227, 227, 0.89);
+}
+
+._button {
+  display: block;
+  border: 1px solid rgb(51, 51, 51);
+  border-radius: 3px;
+  font-size: 1em;
+  text-align: center;
+  color: rgb(0, 0, 0);
+}
+
+.logo ._text {
+  float: left;
+  margin-top: 5px;
+  font-family: AvenirNext-Regular;
+  font-size: 1.563em;
+  font-weight: normal;
+  color: rgb(51, 51, 51);
+}
+
+.text-1 {
+  clear: both;
+  z-index: 4;
+  margin-left: 5.53125%;
+}
+
+.text-2 {
+  z-index: 2;
+  margin-left: 14.8%;
+}
+
+.text-3 {
+  z-index: 1;
+  margin-left: 81.53333%;
+}
+
+.photo_area ._button-1 {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 13.132085389%;
+  z-index: 8;
+  width: 25.2296591845%;
+  min-width: 20px;
+  max-width: 330px;
+  height: 330px;
+  min-height: 330px;
+  max-height: 330px;
+  margin: auto 0;
+  background-color: rgb(222, 222, 222);
+}
+
+.photo_area ._button-2 {
+  float: left;
+  clear: both;
+  width: 7.2666666666%;
+  height: 42px;
+  margin: 77px 0 0 42.16292%;
+  background-color: rgba(51, 51, 51, 0);
+  font-family: AvenirNext-Regular;
+  font-weight: normal;
+  line-height: 2.58;
+}
+
+.photo_text a,
+.photo_text em,
+.photo_text span {
+  border-top-width: 0;
+  border-right-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-color: transparent;
+  border-style: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  background-color: transparent;
+  font-family: inherit;
+  font-style: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  text-transform: inherit;
+  text-decoration: inherit;
+  letter-spacing: inherit;
+  word-spacing: inherit;
+  color: inherit;
+  opacity: 1;
+  word-break: normal;
+  word-wrap: normal;
+  white-space: normal;
+}
+
+.photo_text strong {
+  border-top-width: 0;
+  border-right-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-color: transparent;
+  border-style: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  background-color: transparent;
+  font-family: inherit;
+  font-style: inherit;
+  font-size: inherit;
+  font-weight: Medium;
+  text-transform: inherit;
+  text-decoration: inherit;
+  letter-spacing: inherit;
+  word-spacing: inherit;
+  color: inherit;
+  opacity: 1;
+  word-break: normal;
+  word-wrap: normal;
+  white-space: normal;
+}

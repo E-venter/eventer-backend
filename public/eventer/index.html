@@ -9,23 +9,24 @@
   <link rel="stylesheet" href="css/index.css">
   <style>
     #map {
-      height: 400px;
       width: 100%;
+      height: 400px;
     }
   </style>
-</head>
-<script src="js/jquery-min.js"></script>
-<script src="js/rimages.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuuGiQez2_n9U2wXBQ7dWPvZTOEZGZp98&callback=initMap">
+<script type="text/javascript" src="js/jquery-min.js"></script>
+<script type="text/javascript" src="js/jquery.ajax-cross-origin.min.js"></script>
+<script type="text/javascript" src="js/rimages.js"></script>
+<script type="text/javascript" src="js/js-cookie.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuuGiQez2_n9U2wXBQ7dWPvZTOEZGZp98&callback=initMap">
 </script>
+</head>
 <body class="body page-index clearfix">
   <div onClick="window.location='index.html';" class="logo logo-1"></div>
   <div class="logo logo-2"></div>
   <div class="nav clearfix">
-    <%= link_to "Meus Eventos", my_events_path %>
+    <a href="meuseventos.html" id="meusEventos" class="_text _text-1">Meus Eventos</a>
     <a href="listaeventos.html" id="TodosEventos" class="_text _text-2">Todos os Eventos</a>
-    <!--<button onClick="window.location='login.html';" id="signin" class="_button _button-1">Sign In</button>-->
-    <%= link_to "Sign In", sign_in_path %>
+    <button onClick="window.location='login.html';" id="signin" class="_button _button-1">Sign In</button>
     <button onClick="window.location='cadastro.html';" id="cadastro" class="_button _button-2">Cadastre-se</button>
   </div>
 
@@ -58,7 +59,26 @@
           }
         };
         console.log('data: ', data);
-        $.ajax({
+        var user = {
+            email: 'joseph@mailinator.com',
+            password: '123456'
+        };
+        var loggin = $.ajax({
+            type: 'POST',
+            url: '/api/auth/sign_in/',
+            datatype: 'json',
+            data: user,
+            success: function(msg, status, request){
+                console.log('msg: ', msg);
+                console.log('request: ', request);
+                console.log('status: ', status);
+
+                request.get
+
+            }
+        });
+      });
+        /*$.ajax({
             url: '172.26.184.65:3000',
             hrFields: {
               withCredentials: true
@@ -70,8 +90,7 @@
             success: function(data){
                 console.log('succes: ', data);
             }
-        });
-      });
+        });*/
         /*$.ajax({
           url:'172.26.184.65:3000',
           headers:{
